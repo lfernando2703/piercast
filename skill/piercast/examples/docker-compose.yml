@@ -1,0 +1,32 @@
+id: compose-app
+name: Compose App
+description: Docker Compose project as a single Piercast app
+root: /absolute/path/to/compose-app
+tags:
+  - docker
+  - compose
+commands:
+  start:
+    development:
+      argv: ["docker", "compose", "up"]
+    production:
+      argv: ["docker", "compose", "up", "-d"]
+  stop:
+    argv: ["docker", "compose", "down"]
+ports:
+  primary: 8080
+open_url: "http://127.0.0.1:{port}/"
+health:
+  kind: http
+  target: "http://127.0.0.1:8080/"
+  interval_ms: 5000
+  timeout_ms: 2000
+  healthy_threshold: 1
+  unhealthy_threshold: 3
+restart: on-failure
+expose:
+  default: off
+  path: /
+resources:
+  cpu_warn_percent: 85
+  memory_warn_mb: 1024

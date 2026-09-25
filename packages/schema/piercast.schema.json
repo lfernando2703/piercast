@@ -1,0 +1,273 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://piercast.io/schemas/piercast.schema.json",
+  "title": "PiercastApp",
+  "description": "Canonical Piercast application configuration (piercast.yml).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "root",
+    "commands"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*$",
+      "minLength": 1,
+      "maxLength": 128,
+      "description": "Unique slug"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 4096
+    },
+    "icon": {
+      "type": "string",
+      "description": "Path to icon relative to root or absolute"
+    },
+    "root": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Absolute path after register"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start"
+      ],
+      "properties": {
+        "install": {
+          "$ref": "#/$defs/CommandSpec"
+        },
+        "clean": {
+          "$ref": "#/$defs/CommandSpec"
+        },
+        "build": {
+          "$ref": "#/$defs/CommandSpec"
+        },
+        "start": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "development"
+          ],
+          "properties": {
+            "development": {
+              "$ref": "#/$defs/CommandSpec"
+            },
+            "production": {
+              "$ref": "#/$defs/CommandSpec"
+            }
+          }
+        },
+        "deploy": {
+          "$ref": "#/$defs/CommandSpec"
+        },
+        "stop": {
+          "$ref": "#/$defs/CommandSpec"
+        }
+      }
+    },
+    "env": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "env_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ports": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primary": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "extra": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65535
+          }
+        }
+      }
+    },
+    "open_url": {
+      "type": "string",
+      "description": "URL template; may include {port}"
+    },
+    "health": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "target"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "http",
+            "tcp",
+            "command"
+          ]
+        },
+        "target": {
+          "type": "string",
+          "minLength": 1
+        },
+        "interval_ms": {
+          "type": "integer",
+          "minimum": 100,
+          "default": 5000
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 50,
+          "default": 2000
+        },
+        "healthy_threshold": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "unhealthy_threshold": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 3
+        }
+      }
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "restart": {
+      "type": "string",
+      "enum": [
+        "never",
+        "on-failure",
+        "always"
+      ],
+      "default": "on-failure"
+    },
+    "expose": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "string",
+          "enum": [
+            "off",
+            "serve",
+            "funnel"
+          ],
+          "default": "off"
+        },
+        "path": {
+          "type": "string",
+          "default": "/"
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cpu_warn_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 85
+        },
+        "memory_warn_mb": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1024
+        }
+      }
+    }
+  },
+  "$defs": {
+    "CommandSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "argv"
+      ],
+      "properties": {
+        "argv": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "cwd": {
+          "type": "string"
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "shell": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, argv must be a single shell string (cmd /C or $SHELL -lc)"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "shell": {
+                "const": true
+              }
+            },
+            "required": [
+              "shell"
+            ]
+          },
+          "then": {
+            "properties": {
+              "argv": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

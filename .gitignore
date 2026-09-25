@@ -1,0 +1,60 @@
+# macOS
+.DS_Store
+**/*.xcuserstate
+**/xcuserdata/
+DerivedData/
+*.dmg
+
+# Windows
+Thumbs.db
+*.user
+*.suo
+bin/
+obj/
+
+# Linux / Flatpak
+*.AppImage
+.flatpak-builder/
+
+# Rust
+core/target/
+**/target/
+
+# Node
+node_modules/
+.next/
+.turbo/
+dist-web/
+*.tsbuildinfo
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+pairing.json
+*.p8
+*.p12
+*.keystore
+**/Secrets.xcconfig
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Logs / local data
+*.log
+.piercast/
+
+# Python
+.venv/
+__pycache__/
+
+# Android
+**/local.properties
+**/.gradle/
+**/build/
+
+# Coverage
+coverage/
+lcov.info

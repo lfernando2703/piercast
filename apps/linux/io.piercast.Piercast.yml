@@ -1,0 +1,21 @@
+app-id: io.piercast.Piercast
+runtime: org.gnome.Platform
+runtime-version: '46'
+sdk: org.gnome.Sdk
+command: piercast-gui
+finish-args:
+  - --share=network
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --filesystem=xdg-data/piercast:create
+modules:
+  - name: piercast-gui
+    buildsystem: simple
+    build-commands:
+      - cargo --offline build --release || cargo build --release
+      - install -Dm755 target/release/piercast-gui /app/bin/piercast-gui
+    sources:
+      - type: dir
+        path: .

@@ -1,0 +1,34 @@
+id: nextjs-app
+name: Next.js App
+description: Next.js App Router application
+root: /absolute/path/to/nextjs-app
+tags:
+  - node
+  - nextjs
+commands:
+  install:
+    argv: ["npm", "install"]
+  build:
+    argv: ["npm", "run", "build"]
+  start:
+    development:
+      argv: ["npm", "run", "dev", "--", "-H", "127.0.0.1", "-p", "3000"]
+    production:
+      argv: ["npm", "run", "start", "--", "-H", "127.0.0.1", "-p", "3000"]
+ports:
+  primary: 3000
+open_url: "http://127.0.0.1:{port}/"
+health:
+  kind: http
+  target: "http://127.0.0.1:3000/"
+  interval_ms: 5000
+  timeout_ms: 2000
+  healthy_threshold: 1
+  unhealthy_threshold: 3
+restart: on-failure
+expose:
+  default: off
+  path: /
+resources:
+  cpu_warn_percent: 85
+  memory_warn_mb: 1024

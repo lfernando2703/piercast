@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cleartext HTTP allowed only to RFC1918 + Tailscale CGNAT 100.64/10 -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">10.0.0.0</domain>
+        <domain includeSubdomains="true">ts.net</domain>
+    </domain-config>
+    <!-- Device code also validates IP literals against private ranges before requests. -->
+</network-security-config>

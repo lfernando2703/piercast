@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Piercast.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Piercast">
+    <Grid>
+        <NavigationView x:Name="Nav" PaneDisplayMode="Left" IsBackButtonVisible="Collapsed"
+                        IsSettingsVisible="True" SelectionChanged="Nav_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="All" Tag="all" Icon="ViewAll" />
+                <NavigationViewItem Content="Running" Tag="running" Icon="Play" />
+                <NavigationViewItem Content="Unhealthy" Tag="unhealthy" Icon="Important" />
+                <NavigationViewItem Content="Favorites" Tag="favorites" Icon="Favorite" />
+            </NavigationView.MenuItems>
+            <Grid Padding="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Piercast" Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,12" />
+                <ListView x:Name="AppList" Grid.Row="1" SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                    <TextBlock Text="{Binding Status}" Opacity="0.7" FontSize="12" />
+                                </StackPanel>
+                                <Button Grid.Column="1" Content="Open" Click="Open_Click" Tag="{Binding Id}" Margin="8,0" />
+                                <Button Grid.Column="2" Content="Stop" Click="Stop_Click" Tag="{Binding Id}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </NavigationView>
+    </Grid>
+</Window>

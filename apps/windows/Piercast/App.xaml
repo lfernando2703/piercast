@@ -1,0 +1,16 @@
+<Application
+    x:Class="Piercast.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+            <Color x:Key="PiercastPrimary">#7B6CFF</Color>
+            <Color x:Key="PiercastInk">#0B0B0F</Color>
+            <Color x:Key="PiercastFog">#F5F5F7</Color>
+            <SolidColorBrush x:Key="PiercastPrimaryBrush" Color="{StaticResource PiercastPrimary}" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

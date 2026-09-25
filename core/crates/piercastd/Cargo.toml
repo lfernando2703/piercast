@@ -1,0 +1,20 @@
+[package]
+name = "piercastd"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Piercast daemon"
+
+[[bin]]
+name = "piercastd"
+path = "src/main.rs"
+
+[dependencies]
+piercast-core = { workspace = true }
+piercast-api = { workspace = true }
+anyhow = { workspace = true }
+clap = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

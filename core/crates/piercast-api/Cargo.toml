@@ -1,0 +1,24 @@
+[package]
+name = "piercast-api"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "Piercast local control-plane HTTP API"
+
+[dependencies]
+piercast-core = { workspace = true }
+piercast-schema = { workspace = true }
+piercast-tailscale = { workspace = true }
+anyhow = { workspace = true }
+axum = { workspace = true }
+chrono = { workspace = true }
+futures = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+tokio-stream = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+tracing = { workspace = true }
+uuid = { workspace = true }

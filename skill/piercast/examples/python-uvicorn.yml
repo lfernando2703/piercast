@@ -1,0 +1,48 @@
+id: fastapi-app
+name: FastAPI App
+description: Python FastAPI served by uvicorn
+root: /absolute/path/to/fastapi-app
+tags:
+  - python
+  - fastapi
+  - uvicorn
+commands:
+  install:
+    argv: ["uv", "sync"]
+  start:
+    development:
+      argv:
+        - "uv"
+        - "run"
+        - "uvicorn"
+        - "app:app"
+        - "--host"
+        - "127.0.0.1"
+        - "--port"
+        - "8000"
+        - "--reload"
+    production:
+      argv:
+        - "uv"
+        - "run"
+        - "uvicorn"
+        - "app:app"
+        - "--host"
+        - "127.0.0.1"
+        - "--port"
+        - "8000"
+ports:
+  primary: 8000
+open_url: "http://127.0.0.1:{port}/docs"
+health:
+  kind: http
+  target: "http://127.0.0.1:8000/health"
+  interval_ms: 5000
+  timeout_ms: 2000
+restart: on-failure
+expose:
+  default: off
+  path: /
+resources:
+  cpu_warn_percent: 85
+  memory_warn_mb: 1024

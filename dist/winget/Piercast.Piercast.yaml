@@ -1,0 +1,15 @@
+# Winget manifest draft — publish under piercast/winget-pkgs when ready
+PackageIdentifier: Piercast.Piercast
+PackageVersion: 0.1.0
+PackageLocale: en-US
+Publisher: Piercast
+PackageName: Piercast
+License: Apache-2.0
+ShortDescription: Launch anything. From anywhere.
+Installers:
+  - Architecture: x64
+    InstallerType: msi
+    InstallerUrl: https://github.com/lfernando2703/piercast/releases/download/v0.1.0/Piercast-windows-x64.msi
+    InstallerSha256: 0000000000000000000000000000000000000000000000000000000000000000
+ManifestType: singleton
+ManifestVersion: 1.6.0

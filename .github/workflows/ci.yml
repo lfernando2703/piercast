@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, feat-**]
+  pull_request:
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: core
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.81"
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: core
+      - name: Test piercast-core
+        run: cargo test -p piercast-core
+      - name: Build daemon + CLI
+        run: cargo build -p piercastd -p piercast
+
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Lint piercast schema
+        run: |
+          npx --yes ajv-cli@5 compile -s packages/schema/piercast.schema.json
+          python3 -c "import json; json.load(open('packages/schema/piercast.schema.json')); print('ok')"
+
+  website:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: website/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile || pnpm install
+      - run: pnpm build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://piercast.io
+
+  raycast:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: extensions/raycast
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install
+      - run: npx tsc --noEmit

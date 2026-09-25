@@ -1,0 +1,110 @@
+{
+  "name": "piercast",
+  "title": "Piercast",
+  "description": "Launch, monitor, and expose local apps managed by the Piercast daemon.",
+  "icon": "icon.png",
+  "author": "piercast",
+  "categories": [
+    "Developer Tools",
+    "Productivity"
+  ],
+  "license": "MIT",
+  "platforms": [
+    "macOS"
+  ],
+  "commands": [
+    {
+      "name": "search-apps",
+      "title": "Search Apps",
+      "description": "Fuzzy search registered Piercast apps and run actions.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "open-app",
+      "title": "Open App",
+      "description": "Open an app (auto-starts via POST /open if needed).",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "start",
+      "title": "Start",
+      "description": "Start a Piercast app in development or production mode.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "stop",
+      "title": "Stop",
+      "description": "Gracefully stop a running Piercast app.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "restart",
+      "title": "Restart",
+      "description": "Restart a Piercast app with the same mode.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "kill",
+      "title": "Kill",
+      "description": "Force-kill a Piercast app process.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "expose",
+      "title": "Expose Via Tailscale",
+      "description": "Toggle Tailscale Serve, Funnel, or Off for an app.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    },
+    {
+      "name": "daemon-status",
+      "title": "Daemon Status",
+      "description": "Check whether piercastd is reachable on the control plane.",
+      "mode": "view",
+      "icon": "command-icon.png"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "apiBaseUrl",
+      "title": "API Base URL",
+      "description": "Piercast control plane base URL (no trailing slash).",
+      "type": "textfield",
+      "required": false,
+      "default": "http://127.0.0.1:47923",
+      "placeholder": "http://127.0.0.1:47923"
+    },
+    {
+      "name": "token",
+      "title": "Bearer Token",
+      "description": "Authorization bearer token from pairing.json.",
+      "type": "password",
+      "required": true
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.94.0",
+    "@raycast/utils": "^1.19.1"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.2.0",
+    "@types/node": "~22.13.10",
+    "@types/react": "^19.0.10",
+    "eslint": "^9.22.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "prepublishOnly": "echo \"Please run npm run build before publishing\" && exit 1"
+  }
+}

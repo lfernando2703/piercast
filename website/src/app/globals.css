@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #7b6cff;
+  --color-ink: #0b0b0f;
+  --color-fog: #f5f5f7;
+  --color-success: #30d158;
+  --color-warn: #ff9f0a;
+  --color-danger: #ff453a;
+  --color-ink-muted: #3a3a42;
+  --color-ink-soft: #6b6b76;
+  --color-fog-deep: #e8e8ec;
+  --background: var(--color-fog);
+  --foreground: var(--color-ink);
+  --selection: color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--color-primary);
+  --color-ink: var(--color-ink);
+  --color-fog: var(--color-fog);
+  --color-success: var(--color-success);
+  --color-warn: var(--color-warn);
+  --color-danger: var(--color-danger);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-fog-deep: var(--color-fog-deep);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-display);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-inter), system-ui, sans-serif;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(0, -12px, 0) scale(1.03);
+  }
+}
+
+@keyframes shimmer-line {
+  from {
+    stroke-dashoffset: 240;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-rise-delay-1 {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.animate-rise-delay-2 {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+
+.animate-rise-delay-3 {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+.atmosphere-drift {
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+.pier-draw {
+  stroke-dasharray: 240;
+  animation: shimmer-line 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}

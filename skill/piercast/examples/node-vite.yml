@@ -1,0 +1,32 @@
+id: vite-app
+name: Vite App
+description: Node.js + Vite frontend
+root: /absolute/path/to/vite-app
+tags:
+  - node
+  - vite
+commands:
+  install:
+    argv: ["npm", "install"]
+  build:
+    argv: ["npm", "run", "build"]
+  start:
+    development:
+      argv: ["npm", "run", "dev", "--", "--host", "127.0.0.1", "--port", "5173"]
+    production:
+      argv: ["npm", "run", "preview", "--", "--host", "127.0.0.1", "--port", "5173"]
+ports:
+  primary: 5173
+open_url: "http://127.0.0.1:{port}/"
+health:
+  kind: http
+  target: "http://127.0.0.1:5173/"
+  interval_ms: 5000
+  timeout_ms: 2000
+restart: on-failure
+expose:
+  default: off
+  path: /
+resources:
+  cpu_warn_percent: 85
+  memory_warn_mb: 1024

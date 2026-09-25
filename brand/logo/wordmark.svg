@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 128" role="img" aria-label="Piercast">
+  <g transform="translate(0,0)">
+    <rect width="128" height="128" rx="28" fill="#0B0B0F"/>
+    <g fill="none" stroke="#7B6CFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M28 92 V44"/>
+      <path d="M52 92 V36"/>
+      <path d="M76 92 V44"/>
+      <path d="M100 92 V52"/>
+      <path d="M28 52 H100"/>
+    </g>
+    <circle cx="100" cy="40" r="6" fill="#7B6CFF"/>
+  </g>
+  <text x="152" y="82" font-family="Inter, SF Pro Display, Segoe UI Variable, sans-serif" font-size="56" font-weight="600" fill="#0B0B0F">Piercast</text>
+</svg>
